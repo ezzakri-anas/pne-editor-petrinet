@@ -156,6 +156,23 @@ public class PetriNetwork {
 		return this.list_of_arcs;
 	}
 	/**
+	 * supprime l'arc donné
+	 * @throws Exception 
+	 */
+	public void removeArc(Arc arc)  {
+
+		this.list_of_arcs.remove(arc);
+		for(Transition T: this.list_of_transitions) {
+			try {
+				T.removeArc(arc);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	/**
 	 * Modifie le poids d'un arc spécifique.
 	 * @param arc Arc dont le poids doit être modifié.
 	 * @param poids Nouveau poids de l'arc.

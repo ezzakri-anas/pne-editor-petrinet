@@ -21,7 +21,7 @@ public class ArcAdapter extends AbstractArc{
 	public ArcAdapter(TransitionAdapter transition, PlaceAdapter place, boolean isRegular){
 		Transition t = transition.getModelTransition();
 		Place p = place.getModelPlace();
-		this.arc = new Arc(t, p, isRegular);
+		this.arc = new Arc(t, p, !isRegular);
 		LinkedList<Arc> input_arcs = t.getInputArcs();
 		if(input_arcs.contains(this.arc)){
 			this.source = this.arc.getPlace();
@@ -32,7 +32,10 @@ public class ArcAdapter extends AbstractArc{
 		}
 		
 	}
-
+	@Override
+	public  Arc getArc() {
+		return this.arc;
+	}
 	@Override
 	public AbstractNode getSource() {
 		return this.source;

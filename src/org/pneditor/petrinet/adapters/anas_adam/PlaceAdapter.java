@@ -10,7 +10,7 @@ public class PlaceAdapter extends AbstractPlace{
 		super(label);
 		this.model_place = new Place(0);
 	}
-	
+	@Override
 	public Place getModelPlace() {
 		return this.model_place;
 	}
