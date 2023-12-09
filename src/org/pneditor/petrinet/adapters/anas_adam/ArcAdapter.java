@@ -22,9 +22,8 @@ public class ArcAdapter extends AbstractArc{
 		Transition t = transition.getModelTransition();
 		Place p = place.getModelPlace();
 		this.arc = new Arc(t, p, isRegular);
-		Transition t = this.arc.getTransition();
 		LinkedList<Arc> input_arcs = t.getInputArcs();
-		if(input_arcs.contains(this.arc){
+		if(input_arcs.contains(this.arc)){
 			this.source = this.arc.getPlace();
 			this.destination = t;
 		} else {
