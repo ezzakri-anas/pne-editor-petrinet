@@ -120,14 +120,8 @@ public class PetriNetwork {
 	public void addArcZero(Arc arc) {
 		if (this.isArcUnique(arc)) {
 			this.list_of_arcs.add(arc);
-			for(Transition T: this.list_of_transitions) {
-				if(T.equals(arc.getTransition())) {
-
-					T.addInputArc(arc);
-
-
-				}
-			}
+			Transition T = arc.getTransition();
+			T.addInputArc(arc);
 		}
 	}
 	/**
@@ -138,15 +132,8 @@ public class PetriNetwork {
 	public void addArcVideur(Arc arc) {
 		if (this.isArcUnique(arc)) {
 			this.list_of_arcs.add(arc);
-			for(Transition T: this.list_of_transitions) {
-
-				if(T.equals(arc.getTransition())) {
-
-					T.addInputArc(arc);
-
-
-				}
-			}
+			Transition T = arc.getTransition();
+			T.addInputArc(arc);
 		}
 	}
 
@@ -156,7 +143,6 @@ public class PetriNetwork {
 	 * @return La liste des arcs.
 	 */
 	public LinkedList<Arc> getArc() {
-
 		return this.list_of_arcs;
 	}
 	/**
