@@ -147,7 +147,6 @@ public class PetriNetAdapter extends PetriNetInterface {
 	 */
 	@Override
 	public void fire(AbstractTransition transition) throws ResetArcMultiplicityException {
-		System.out.println(this.petriNetwork.showPetriNet());
 		this.petriNetwork.step(((TransitionAdapter)transition).getModelTransition());
 	}
 
