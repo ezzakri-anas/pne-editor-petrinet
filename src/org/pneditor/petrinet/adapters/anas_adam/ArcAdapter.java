@@ -15,20 +15,19 @@ import org.pneditor.petrinet.models.anas_adam.Transition;
 
 public class ArcAdapter extends AbstractArc{
 	private Arc arc;
-	private AbstractNode source;
-	private AbstractNode destination;
+	private Transition transition;
+	private Place place;
+	private boolean to_transition;
 
 	public ArcAdapter(TransitionAdapter transition, PlaceAdapter place, boolean isRegular){
-		Transition t = transition.getModelTransition();
-		Place p = place.getModelPlace();
-		this.arc = new Arc(t, p, !isRegular);
-		LinkedList<Arc> input_arcs = t.getInputArcs();
+		this.transition = transition.getModelTransition();
+		this.place = place.getModelPlace();
+		this.arc = new Arc(this.transition, this.place, !isRegular);
+		LinkedList<Arc> input_arcs = this.transition.getInputArcs();
 		if(input_arcs.contains(this.arc)){
-			this.source = this.arc.getPlace();
-			this.destination = t;
+			this.to_transition = true;
 		} else {
-			this.source = t;
-			this.destination = this.arc.getPlace();
+			this.to_transition = false;
 		}
 		
 	}
@@ -38,12 +37,12 @@ public class ArcAdapter extends AbstractArc{
 	}
 	@Override
 	public AbstractNode getSource() {
-		return this.source;
+		return this.to_transition? this.transition: this.place;
 	}
 
 	@Override
 	public AbstractNode getDestination() {
-		return this.destination;
+		return this.to_transition? this.place: this.transition;
 	}
 
 	@Override
