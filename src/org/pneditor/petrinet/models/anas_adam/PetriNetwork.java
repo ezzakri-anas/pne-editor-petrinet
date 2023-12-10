@@ -121,7 +121,7 @@ public class PetriNetwork {
 	public LinkedList<Arc> getArcList() {
 		return this.list_of_arcs;
 	}
-	
+
 	public void setArcList(LinkedList<Arc> Arcs) {
 		this.list_of_arcs = Arcs;
 	}

@@ -10,12 +10,12 @@ public class PlaceAdapter extends AbstractPlace{
 		super(label);
 		this.model_place = new Place(0);
 	}
-	
-	
+
+
 	public Place getModelPlace() {
 		return this.model_place;
 	}
-	
+
 	@Override
 	public void addToken() {
 		this.setTokens(this.getTokens() + 1);
@@ -30,12 +30,12 @@ public class PlaceAdapter extends AbstractPlace{
 	public int getTokens() {
 		return this.model_place.getTokenNbre();
 	}
-	
+
 	@Override
 	public void setTokens(int tokens) {
 		this.model_place.setTokenNbre(tokens);
 	}
-	
+
 	@Override
 	public boolean isPlace() {
 		return true;

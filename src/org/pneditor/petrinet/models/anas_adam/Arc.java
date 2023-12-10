@@ -127,15 +127,15 @@ public class Arc {
 	 */
 
 	public void fire() {}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		
+
 		if((this.place.equals(((Arc)obj).getPlace()))&&(this.transition.equals(((Arc)obj).getTransition()))) {
 			return true;
 		}
 		return false;
-		
+
 	}
 
 }

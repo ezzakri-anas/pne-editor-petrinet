@@ -26,9 +26,9 @@ public class ArcAdapter extends AbstractArc{
 		this.model_place = place.getModelPlace();
 		this.model_arc = new Arc(weight, model_transition, model_place, !isRegular);;
 		this.to_transition = to_transition;
-		
+
 	}
-	
+
 	public ArcAdapter(TransitionAdapter transition, PlaceAdapter place, boolean isRegular, boolean to_transition){
 		this.transition = transition;
 		this.place = place;
@@ -36,9 +36,9 @@ public class ArcAdapter extends AbstractArc{
 		this.model_place = place.getModelPlace();
 		this.model_arc = new Arc(1, model_transition, model_place, !isRegular);;
 		this.to_transition = to_transition;
-		
+
 	}
-	
+
 	public ArcAdapter(TransitionAdapter transition, PlaceAdapter place, String specialType){
 		this.transition = transition;
 		this.place = place;
@@ -50,18 +50,18 @@ public class ArcAdapter extends AbstractArc{
 			this.model_arc = new ArcVideur(model_transition, model_place, true);
 		}
 		this.to_transition = true;
-		
+
 	}
-	
+
 	public boolean getDirection() {
 		return this.to_transition;
 	}
-	
+
 
 	public Arc getModelArc() {
 		return this.model_arc;
 	}
-	
+
 	@Override
 	public AbstractNode getSource() {
 		return this.to_transition? this.place: this.transition;
@@ -96,6 +96,6 @@ public class ArcAdapter extends AbstractArc{
 	public void setMultiplicity(int multiplicity) throws ResetArcMultiplicityException {
 		model_arc.setWeight(multiplicity);
 	}
-	
+
 
 }

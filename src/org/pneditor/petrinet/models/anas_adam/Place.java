@@ -1,4 +1,4 @@
- package org.pneditor.petrinet.models.anas_adam;
+package org.pneditor.petrinet.models.anas_adam;
 
 /**
  * Classe représentant une place dans un réseau de Petri, caractérisée par un nombre de jetons.
@@ -15,7 +15,7 @@ public class Place {
 	public Place(int tokenNbre) {
 		this.tokenNbre = tokenNbre < 1 ? 0 : tokenNbre;
 	}
-	
+
 	/**
 	 * Obtient le nombre de jetons actuellement dans la place.
 	 * @return Le nombre de jetons dans la place.
@@ -41,5 +41,5 @@ public class Place {
 	public void removeTokenNbre(int to_remove) {
 		this.tokenNbre -= to_remove <= this.getTokenNbre() ? to_remove : this.getTokenNbre();
 	}
-	
+
 }
