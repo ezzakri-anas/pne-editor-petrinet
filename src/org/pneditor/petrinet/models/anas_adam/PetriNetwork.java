@@ -152,6 +152,18 @@ public class PetriNetwork {
 			}
 		}
 	}
+	
+	public Arc find(Transition transition, Place place, int weight, boolean isZeroorVideur) {
+		Arc arc= new Arc(weight,transition,place, isZeroorVideur);
+		for ( Arc arcs : this.list_of_arcs)
+		if (arcs.equals(arc)) {
+			return arcs;
+
+				}
+		return null;
+			}
+		
+	
 	/**
 	 * Retourne la liste des arcs présents dans le réseau.
 	 * @return La liste des arcs.

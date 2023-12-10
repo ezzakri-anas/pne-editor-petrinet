@@ -19,12 +19,12 @@ public class ArcAdapter extends AbstractArc{
 	private AbstractNode place;
 	private boolean to_transition;
 
-	public ArcAdapter(TransitionAdapter transition, PlaceAdapter place, boolean isRegular){
+	public ArcAdapter(Arc arc,TransitionAdapter transition, PlaceAdapter place, boolean isRegular){
 		this.transition = transition;
 		this.place = place;
 		this.model_transition = transition.getModelTransition();
 		this.model_place = place.getModelPlace();
-		this.model_arc = new Arc(this.model_transition, this.model_place, !isRegular);
+		this.model_arc =arc;
 		LinkedList<Arc> input_arcs = this.model_transition.getInputArcs();
 		if(input_arcs.contains(this.model_arc)){
 			this.to_transition = true;

@@ -52,17 +52,20 @@ public class PetriNetAdapter extends PetriNetInterface {
     	if(source.getLabel()=="Place") {
     
     	System.out.println("hello there");
-    	AbstractArc modal_arc = new ArcAdapter((TransitionAdapter) destination,  (PlaceAdapter) source, true);
+    	
     	//addArc(Transition transition, Place place, int weight, boolean entrsort, boolean isZeroorVideur)
     	this.petriNetwork.addArc(((TransitionAdapter) destination).getModelTransition(), ((PlaceAdapter) source).getModelPlace(), 1, true, false);
+    	Arc arc= petriNetwork.find(((TransitionAdapter) destination).getModelTransition(), ((PlaceAdapter) source).getModelPlace(), 1, false);
+    	AbstractArc modal_arc = new ArcAdapter(arc,(TransitionAdapter) destination,  (PlaceAdapter) source, true);
     	System.out.println(((TransitionAdapter) destination).getModelTransition().getInputArcs().size());
     	System.out.println(this.petriNetwork.getArc().size()+"number of transitions");
     	
     	return modal_arc;
         }
         else  {
-        	AbstractArc modal_arc = new ArcAdapter((TransitionAdapter) source,  (PlaceAdapter) destination, true);
         	this.petriNetwork.addArc(((TransitionAdapter) source).getModelTransition(),((PlaceAdapter) destination).getModelPlace(), 1, false, false);
+        	Arc arc2= petriNetwork.find(((TransitionAdapter) source).getModelTransition(), ((PlaceAdapter) destination).getModelPlace(), 1, false);
+        	AbstractArc modal_arc = new ArcAdapter(arc2,(TransitionAdapter) source,  (PlaceAdapter) destination, true);
         	return modal_arc;
         	
         }
