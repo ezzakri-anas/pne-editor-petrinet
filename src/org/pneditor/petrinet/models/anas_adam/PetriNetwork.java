@@ -60,7 +60,7 @@ public class PetriNetwork {
 	public void addTransition(Transition transition) {
 		this.list_of_transitions.add(transition);
 	}
-	
+
 	/**
 	 * Supprime une transition spécifique du réseau.
 	 * @param transition Transition à supprimer.
@@ -76,7 +76,7 @@ public class PetriNetwork {
 	public void addPlace(Place place) {
 		this.list_of_places.add(place);
 	}
-	
+
 	/**
 	 * Supprime une place spécifique du réseau.
 	 * @param place Place à supprimer.
@@ -101,7 +101,7 @@ public class PetriNetwork {
 			}
 		}
 	}
-	
+
 	/**
 	 * Supprime un arc spécifique des listes d'arcs entrants ou sortants, selon sa présence.
 	 * @param arc Arc à supprimer.
@@ -120,7 +120,7 @@ public class PetriNetwork {
 			T.setInputArcs(inputs);
 		}
 	}
-	
+
 	/**
 	 * Ajoute un ArcZero au réseau, qui est un type spécial d'arc avec des règles de tirage spécifiques.
 	 * @param transition Transition associée à l'arc.
@@ -133,7 +133,7 @@ public class PetriNetwork {
 			T.addInputArc(arc);
 		}
 	}
-	
+
 	/**
 	 * Ajoute un ArcVideur au réseau, un type spécial d'arc qui vide entièrement la place de ses jetons lorsqu'il est tiré.
 	 * @param transition Transition associée à l'arc.
@@ -155,7 +155,7 @@ public class PetriNetwork {
 	public LinkedList<Arc> getArcList() {
 		return this.list_of_arcs;
 	}
-	
+
 	/**
 	 * Définit la liste des arcs dans le réseau.
 	 * @param Arcs Liste des arcs à définir.
@@ -213,7 +213,7 @@ public class PetriNetwork {
 				enabled= false;
 			}
 		}
-		
+
 		if(enabled) {
 			for (Arc arc : T.getInputArcs()) {
 				if(arc.isVideurOrZero()) {

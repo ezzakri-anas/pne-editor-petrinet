@@ -171,7 +171,7 @@ public abstract class PetriNetInterface {
 				} else {
 					newArc = addRegArc(source, destination);
 				}
-					newArc.setMultiplicity(arc.getMultiplicity());
+				newArc.setMultiplicity(arc.getMultiplicity());
 			}
 		} catch (UnimplementedCaseException | ResetArcMultiplicityException e) {
 			// should never happen because source and destination are new objects

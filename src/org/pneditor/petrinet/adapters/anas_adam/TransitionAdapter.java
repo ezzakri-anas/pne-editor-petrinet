@@ -14,28 +14,28 @@ import org.pneditor.petrinet.models.anas_adam.Transition;
  */
 public class TransitionAdapter extends AbstractTransition{
 	private Transition modelTransition;
-	
-    /**
-     * Constructeur de la classe TransitionAdapter.
-     * @param label Le label de la transition.
-     */
+
+	/**
+	 * Constructeur de la classe TransitionAdapter.
+	 * @param label Le label de la transition.
+	 */
 	public TransitionAdapter(final String label) {
 		super(label);
 		this.modelTransition = new Transition(new LinkedList<Arc>(),new LinkedList<Arc>());
 	}
 
-    /**
-     * Obtient le modèle de transition sous-jacent.
-     * @return Le modèle de transition.
-     */
+	/**
+	 * Obtient le modèle de transition sous-jacent.
+	 * @return Le modèle de transition.
+	 */
 	public Transition getModelTransition() {
 		return this.modelTransition;
 	}
-	
-    /**
-     * Vérifie si ce noeud est une place dans le réseau de Petri.
-     * @return false.
-     */
+
+	/**
+	 * Vérifie si ce noeud est une place dans le réseau de Petri.
+	 * @return false.
+	 */
 	@Override
 	public boolean isPlace() {
 		return false;
