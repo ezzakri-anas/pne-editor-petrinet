@@ -4,8 +4,6 @@ import java.util.LinkedList;
 
 import org.pneditor.petrinet.AbstractArc;
 import org.pneditor.petrinet.AbstractNode;
-import org.pneditor.petrinet.AbstractPlace;
-import org.pneditor.petrinet.AbstractTransition;
 import org.pneditor.petrinet.ResetArcMultiplicityException;
 import org.pneditor.petrinet.models.anas_adam.Arc;
 import org.pneditor.petrinet.models.anas_adam.ArcVideur;
@@ -73,5 +71,6 @@ public class ArcAdapter extends AbstractArc{
 	public void setMultiplicity(int multiplicity) throws ResetArcMultiplicityException {
 		model_arc.setWeight(multiplicity);
 	}
+	
 
 }
