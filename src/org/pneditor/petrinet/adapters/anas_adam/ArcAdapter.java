@@ -47,6 +47,20 @@ public class ArcAdapter extends AbstractArc{
 		
 	}
 	
+	public ArcAdapter(TransitionAdapter transition, PlaceAdapter place, String specialType){
+		this.transition = transition;
+		this.place = place;
+		this.model_transition = transition.getModelTransition();
+		this.model_place = place.getModelPlace();
+		if(specialType == "Inhibitor") {
+			this.model_arc = new ArcZero(model_transition, model_place, true);
+		} else {
+			this.model_arc = new ArcVideur(model_transition, model_place, true);
+		}
+		this.to_transition = true;
+		
+	}
+	
 	public boolean getDirection() {
 		return this.to_transition;
 	}
@@ -58,12 +72,12 @@ public class ArcAdapter extends AbstractArc{
 	
 	@Override
 	public AbstractNode getSource() {
-		return this.to_transition? this.transition: this.place;
+		return this.to_transition? this.place: this.transition;
 	}
 
 	@Override
 	public AbstractNode getDestination() {
-		return this.to_transition? this.place: this.transition;
+		return this.to_transition? this.transition: this.place;
 	}
 
 	@Override

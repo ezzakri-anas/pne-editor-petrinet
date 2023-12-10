@@ -92,17 +92,16 @@ public class PetriNetwork {
 	 * @param entrsort Booléen indiquant si l'arc est entrant ou sortant.
 	 * @param isZeroorVideur Booléen indiquant si l'arc est de type ArcZero ou ArcVideur.
 	 */
-	public void addArc(Transition transition, Place place, int weight, boolean entrsort, boolean isZeroorVideur) {
-		Arc arc= new Arc(weight,transition,place, isZeroorVideur);
+	public void addArc(Arc arc, boolean to_transition) {
 		System.out.println("*****"+this.isArcUnique(arc));
 		if (this.isArcUnique(arc)) {
 			this.list_of_arcs.add(arc);
 			for(Transition T: this.list_of_transitions) {
-				System.out.println(T.equals(transition));
-//				System.out.println(T.getId()+""+transition.getId()+"");
-				if(T.equals(transition)) {
-					
-					if(entrsort) {
+				System.out.println(T.equals(arc.getTransition()));
+				//				System.out.println(T.getId()+""+transition.getId()+"");
+				if(T.equals(arc.getTransition())) {
+
+					if(to_transition) {
 						T.addInputArc(arc);
 					}
 					else {
@@ -118,12 +117,11 @@ public class PetriNetwork {
 	 * @param transition Transition associée à l'arc.
 	 * @param place Place associée à l'arc.
 	 */
-	public void addArcZero(Transition transition, Place place) {
-		Arc arc= new ArcZero(transition, place, true);
+	public void addArcZero(Arc arc) {
 		if (this.isArcUnique(arc)) {
 			this.list_of_arcs.add(arc);
 			for(Transition T: this.list_of_transitions) {
-				if(T.equals(transition)) {
+				if(T.equals(arc.getTransition())) {
 
 					T.addInputArc(arc);
 
@@ -137,13 +135,12 @@ public class PetriNetwork {
 	 * @param transition Transition associée à l'arc.
 	 * @param place Place associée à l'arc.
 	 */
-	public void addArcVideur(Transition transition, Place place) {
-		Arc arc=new ArcVideur(transition,  place, true);
+	public void addArcVideur(Arc arc) {
 		if (this.isArcUnique(arc)) {
 			this.list_of_arcs.add(arc);
 			for(Transition T: this.list_of_transitions) {
-				
-				if(T.equals(transition)) {
+
+				if(T.equals(arc.getTransition())) {
 
 					T.addInputArc(arc);
 
@@ -152,8 +149,8 @@ public class PetriNetwork {
 			}
 		}
 	}
-			
-	
+
+
 	/**
 	 * Retourne la liste des arcs présents dans le réseau.
 	 * @return La liste des arcs.
@@ -177,7 +174,7 @@ public class PetriNetwork {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 	/**
 	 * Modifie le poids d'un arc spécifique.
@@ -202,20 +199,20 @@ public class PetriNetwork {
 	 * @param arc Arc à vérifier.
 	 * @return Booléen indiquant si l'arc est unique.
 	 */
-	
+
 	public boolean isArcUnique(Arc arc) {
-	    for (Arc arc_transitions : this.list_of_arcs) {
-//	        System.out.println(arc.getId() + "=" + arc_transitions.getId());
-	        if (arc_transitions.equals(arc)) {
-	            return false;
-	        }
-	    }
-	    return true;
+		for (Arc arc_transitions : this.list_of_arcs) {
+			//	        System.out.println(arc.getId() + "=" + arc_transitions.getId());
+			if (arc_transitions.equals(arc)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 
 
-	
+
 	/**
 	 * Exécute un pas (tirage) sur une transition donnée.
 	 * @param T Transition sur laquelle effectuer le pas.
@@ -241,14 +238,13 @@ public class PetriNetwork {
 						arc.getPlace().removeTokenNbre(arc.getWeight());	
 					}
 				}
-				for (Arc arc1 : T.getOutputArcs()) {
-					arc1.getPlace().setTokenNbre(arc1.getPlace().getTokenNbre()+arc1.getWeight());	
-				}
-
+			}
+			for (Arc arc : T.getOutputArcs()) {
+				arc.getPlace().setTokenNbre(arc.getPlace().getTokenNbre() + arc.getWeight());	
 			}
 		}
 	}
-	
+
 	/**
 	 * Exécute un pas (tirage) sur toutes les transitions du réseau.
 	 */
@@ -390,9 +386,12 @@ public class PetriNetwork {
 		Place P1= create_place_for_test(5,Petri);
 		Place P2= create_place_for_test(0,Petri);
 		Place P3= create_place_for_test(1,Petri);
-		Petri.addArc(T1, P1,4,true,false);
-		Petri.addArcZero(T1, P2);
-		Petri.addArcZero(T2, P3);
+		Arc A = new Arc(4, T1, P1, false);
+		Petri.addArc(A, true);
+		ArcZero AZ1 = new ArcZero(T1, P2, true);
+		ArcZero AZ2 = new ArcZero(T2, P3, true);
+		Petri.addArcZero(AZ1);
+		Petri.addArcZero(AZ2);
 
 		//		Petri.AfficherPetriNet();
 
@@ -443,8 +442,8 @@ public class PetriNetwork {
 	 * @return L'arc créé et ajouté au réseau.
 	 */
 	public static Arc create_arc_for_test(int poids, Transition transition, Place place,boolean entrsortie, boolean isVideurOrZero,PetriNetwork Petri) {
-		Arc arc= new Arc( poids,transition, place, isVideurOrZero);
-		Petri.addArc(transition, place, poids, entrsortie, isVideurOrZero);
+		Arc arc= new Arc(poids, transition, place, isVideurOrZero);
+		Petri.addArc(arc, entrsortie);
 
 		return arc;
 
@@ -458,8 +457,8 @@ public class PetriNetwork {
 	 * @return L'ArcVideur créé et ajouté au réseau.
 	 */
 	public static Arc create_arc_videur_for_test( Transition transition, Place place,PetriNetwork Petri) {
-		Arc arc= new ArcVideur(transition,place ,true);
-		Petri.addArcVideur(transition, place);
+		Arc arc= new ArcVideur(transition, place ,true);
+		Petri.addArcVideur(arc);
 
 		return arc;
 
@@ -472,8 +471,8 @@ public class PetriNetwork {
 	 * @return L'ArcZero créé et ajouté au réseau.
 	 */
 	public static Arc create_arc_zero_for_test( Transition transition, Place place,PetriNetwork Petri) {
-		Arc arc= new ArcZero(transition,place ,true);
-		Petri.addArcZero(transition, place);
+		Arc arc = new ArcZero(transition, place ,true);
+		Petri.addArcZero(arc);
 
 		return arc;
 

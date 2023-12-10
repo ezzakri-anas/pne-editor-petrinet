@@ -1,7 +1,5 @@
 package org.pneditor.petrinet.adapters.anas_adam;
 
-import java.util.LinkedList;
-
 import org.pneditor.petrinet.AbstractArc;
 import org.pneditor.petrinet.AbstractNode;
 import org.pneditor.petrinet.AbstractPlace;
@@ -11,8 +9,6 @@ import org.pneditor.petrinet.ResetArcMultiplicityException;
 import org.pneditor.petrinet.UnimplementedCaseException;
 import org.pneditor.petrinet.models.anas_adam.Arc;
 import org.pneditor.petrinet.models.anas_adam.PetriNetwork;
-import org.pneditor.petrinet.models.anas_adam.Place;
-import org.pneditor.petrinet.models.anas_adam.Transition;
 
 public class PetriNetAdapter extends PetriNetInterface {
     private PetriNetwork petriNetwork;
@@ -58,7 +54,7 @@ public class PetriNetAdapter extends PetriNetInterface {
 		if(!(this.isArcUnique(arc))) {
 			throw new IllegalArgumentException("Arc is not unique:" + arc.getModelArc());
 		}
-		this.petriNetwork.addArc(t.getModelTransition(), p.getModelPlace(), 1, to_transition, false);
+		this.petriNetwork.addArc(arc.getModelArc(), to_transition);
 		
 		System.out.println(t.getModelTransition().getInputArcs().size());
 		System.out.println(this.petriNetwork.getArc().size()+"number of transitions");
@@ -135,16 +131,16 @@ public class PetriNetAdapter extends PetriNetInterface {
 	@Override
 	public AbstractArc addInhibitoryArc(AbstractPlace place, AbstractTransition transition)
 			throws UnimplementedCaseException {
-		AbstractArc modal_arc = new ArcAdapter((TransitionAdapter) transition,  (PlaceAdapter) place, false, true);
-    	this.petriNetwork.addArcZero(((TransitionAdapter) transition).getModelTransition(),((PlaceAdapter) place).getModelPlace());
-    	return modal_arc;
+		AbstractArc arc = new ArcAdapter((TransitionAdapter) transition, (PlaceAdapter) place, "Inhibitor");
+    	this.petriNetwork.addArcZero(((ArcAdapter)arc).getModelArc());
+    	return arc;
 	}
 
 	@Override
 	public AbstractArc addResetArc(AbstractPlace place, AbstractTransition transition)
 			throws UnimplementedCaseException {
-		AbstractArc modal_arc = new ArcAdapter((TransitionAdapter) transition,  (PlaceAdapter) place, false, true);
-    	this.petriNetwork.addArcVideur(((TransitionAdapter) transition).getModelTransition(),((PlaceAdapter) place).getModelPlace());
-    	return modal_arc;
+		AbstractArc arc = new ArcAdapter((TransitionAdapter) transition, (PlaceAdapter) place, "Reset");
+    	this.petriNetwork.addArcVideur(((ArcAdapter)arc).getModelArc());
+    	return arc;
 	}
 }
