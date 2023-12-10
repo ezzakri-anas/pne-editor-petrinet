@@ -247,9 +247,8 @@ public class PetriNetwork {
 
 			}
 		}
-
-
 	}
+	
 	/**
 	 * Exécute un pas (tirage) sur toutes les transitions du réseau.
 	 */

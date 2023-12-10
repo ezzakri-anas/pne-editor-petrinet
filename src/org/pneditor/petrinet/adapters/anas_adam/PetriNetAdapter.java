@@ -129,14 +129,13 @@ public class PetriNetAdapter extends PetriNetInterface {
 
     @Override
     public void fire(AbstractTransition transition) throws ResetArcMultiplicityException {
-        
-    	petriNetwork.stepAll();
+    	this.petriNetwork.step(((TransitionAdapter)transition).getModelTransition());
     }
 
 	@Override
 	public AbstractArc addInhibitoryArc(AbstractPlace place, AbstractTransition transition)
 			throws UnimplementedCaseException {
-		AbstractArc modal_arc = new ArcAdapter((TransitionAdapter) transition,  (PlaceAdapter) place, false);
+		AbstractArc modal_arc = new ArcAdapter((TransitionAdapter) transition,  (PlaceAdapter) place, false, true);
     	this.petriNetwork.addArcZero(((TransitionAdapter) transition).getModelTransition(),((PlaceAdapter) place).getModelPlace());
     	return modal_arc;
 	}
@@ -144,7 +143,7 @@ public class PetriNetAdapter extends PetriNetInterface {
 	@Override
 	public AbstractArc addResetArc(AbstractPlace place, AbstractTransition transition)
 			throws UnimplementedCaseException {
-		AbstractArc modal_arc = new ArcAdapter((TransitionAdapter) transition,  (PlaceAdapter) place, false);
+		AbstractArc modal_arc = new ArcAdapter((TransitionAdapter) transition,  (PlaceAdapter) place, false, true);
     	this.petriNetwork.addArcVideur(((TransitionAdapter) transition).getModelTransition(),((PlaceAdapter) place).getModelPlace());
     	return modal_arc;
 	}
