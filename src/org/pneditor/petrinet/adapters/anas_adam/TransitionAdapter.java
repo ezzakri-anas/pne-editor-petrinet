@@ -22,7 +22,7 @@ public class TransitionAdapter extends AbstractTransition{
 		boolean enabled= true;
 		for (Arc arc : this.model_transition.getInputArcs()) {
 			if(!arc.isActive()) {
-				enabled= false;
+				enabled = false;
 			}
 		}
 		return enabled;
