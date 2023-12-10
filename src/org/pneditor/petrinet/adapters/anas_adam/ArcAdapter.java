@@ -1,6 +1,5 @@
 package org.pneditor.petrinet.adapters.anas_adam;
 
-import java.util.LinkedList;
 
 import org.pneditor.petrinet.AbstractArc;
 import org.pneditor.petrinet.AbstractNode;

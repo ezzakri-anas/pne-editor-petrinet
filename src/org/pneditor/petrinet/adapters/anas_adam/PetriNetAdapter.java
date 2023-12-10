@@ -1,7 +1,5 @@
 package org.pneditor.petrinet.adapters.anas_adam;
 
-import java.util.LinkedList;
-
 import org.pneditor.petrinet.AbstractArc;
 import org.pneditor.petrinet.AbstractNode;
 import org.pneditor.petrinet.AbstractPlace;
@@ -11,8 +9,6 @@ import org.pneditor.petrinet.ResetArcMultiplicityException;
 import org.pneditor.petrinet.UnimplementedCaseException;
 import org.pneditor.petrinet.models.anas_adam.Arc;
 import org.pneditor.petrinet.models.anas_adam.PetriNetwork;
-import org.pneditor.petrinet.models.anas_adam.Place;
-import org.pneditor.petrinet.models.anas_adam.Transition;
 
 
 /**
@@ -93,9 +89,10 @@ public class PetriNetAdapter extends PetriNetInterface {
 	 */
 	@Override
 	public void removePlace(AbstractPlace place) {
-		LinkedList<Place> places_list = this.petriNetwork.getPlaceList();
-		places_list.removeIf(p -> p.equals(((PlaceAdapter)place).getModelPlace()));
-		this.petriNetwork.setPlaceList(places_list);
+//		LinkedList<Place> places_list = this.petriNetwork.getPlaceList();
+//		places_list.removeIf(p -> p.equals(((PlaceAdapter)place).getModelPlace()));
+//		this.petriNetwork.setPlaceList(places_list);
+		this.petriNetwork.removePlace(((PlaceAdapter)place).getModelPlace());
 	}
 
 	/**
@@ -104,9 +101,10 @@ public class PetriNetAdapter extends PetriNetInterface {
 	 */
 	@Override
 	public void removeTransition(AbstractTransition transition) {
-		LinkedList<Transition> transitions_list = this.petriNetwork.getTransitionList();
-		transitions_list.removeIf(p -> p.equals(((TransitionAdapter)transition).getModelTransition()));
-		this.petriNetwork.setTransitionList(transitions_list);
+//		LinkedList<Transition> transitions_list = this.petriNetwork.getTransitionList();
+//		transitions_list.removeIf(p -> p.equals(((TransitionAdapter)transition).getModelTransition()));
+//		this.petriNetwork.setTransitionList(transitions_list);
+		this.petriNetwork.removeTransition(((TransitionAdapter)transition).getModelTransition());
 	}
 
 	/**
@@ -116,19 +114,20 @@ public class PetriNetAdapter extends PetriNetInterface {
 	@Override
 	public void removeArc(AbstractArc arc) {
 		Arc model_arc = ((ArcAdapter)arc).getModelArc();
+		this.petriNetwork.removeArc(model_arc);
 
-		LinkedList<Arc> arcs_list = this.petriNetwork.getArcList();
-		arcs_list.removeIf(p -> p.equals(model_arc));
-		this.petriNetwork.setArcList(arcs_list);
-
-		for(Transition T: this.petriNetwork.getTransitionList()) {
-			LinkedList<Arc> outputs = T.getOutputArcs();
-			LinkedList<Arc> inputs = T.getInputArcs();
-			outputs.removeIf(a -> a.equals(model_arc));
-			inputs.removeIf(a -> a.equals(model_arc));
-			T.setOutputArcs(outputs);
-			T.setInputArcs(inputs);
-		}
+//		LinkedList<Arc> arcs_list = this.petriNetwork.getArcList();
+//		arcs_list.removeIf(p -> p.equals(model_arc));
+//		this.petriNetwork.setArcList(arcs_list);
+//
+//		for(Transition T: this.petriNetwork.getTransitionList()) {
+//			LinkedList<Arc> outputs = T.getOutputArcs();
+//			LinkedList<Arc> inputs = T.getInputArcs();
+//			outputs.removeIf(a -> a.equals(model_arc));
+//			inputs.removeIf(a -> a.equals(model_arc));
+//			T.setOutputArcs(outputs);
+//			T.setInputArcs(inputs);
+//		}
 	}
 
     /**
@@ -159,6 +158,7 @@ public class PetriNetAdapter extends PetriNetInterface {
      */
 	@Override
 	public void fire(AbstractTransition transition) throws ResetArcMultiplicityException {
+		System.out.println(this.petriNetwork.showPetriNet());
 		this.petriNetwork.step(((TransitionAdapter)transition).getModelTransition());
 	}
 

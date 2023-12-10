@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+
 /**
  * Classe principale représentant un réseau de Petri, contenant des places, transitions et arcs.
  */
@@ -59,6 +60,14 @@ public class PetriNetwork {
 	public void addTransition(Transition transition) {
 		this.list_of_transitions.add(transition);
 	}
+	
+	/**
+	 * Supprime une transition spécifique du réseau.
+	 * @param transition Transition à supprimer.
+	 */
+	public void removeTransition(Transition transition) {
+		this.list_of_transitions.removeIf(transitions -> transitions.equals(transition));
+	}
 
 	/**
 	 * Ajoute une place spécifique au réseau.
@@ -66,6 +75,14 @@ public class PetriNetwork {
 	 */
 	public void addPlace(Place place) {
 		this.list_of_places.add(place);
+	}
+	
+	/**
+	 * Supprime une place spécifique du réseau.
+	 * @param place Place à supprimer.
+	 */
+	public void removePlace(Place place) {
+		this.list_of_places.removeIf(p -> p.equals(place));
 	}
 
 	/**
@@ -86,8 +103,27 @@ public class PetriNetwork {
 				}
 			}
 		}
-
 	}
+	
+	/**
+	 * Supprime un arc spécifique des listes d'arcs entrants ou sortants, selon sa présence.
+	 * @param arc Arc à supprimer.
+	 */
+	public void removeArc(Arc arc) {
+		LinkedList<Arc> arcs_list = this.getArcList();
+		arcs_list.removeIf(p -> p.equals(arc));
+		this.setArcList(arcs_list);
+
+		for(Transition T: this.getTransitionList()) {
+			LinkedList<Arc> outputs = T.getOutputArcs();
+			LinkedList<Arc> inputs = T.getInputArcs();
+			outputs.removeIf(a -> a.equals(arc));
+			inputs.removeIf(a -> a.equals(arc));
+			T.setOutputArcs(outputs);
+			T.setInputArcs(inputs);
+		}
+	}
+	
 	/**
 	 * Ajoute un ArcZero au réseau, qui est un type spécial d'arc avec des règles de tirage spécifiques.
 	 * @param transition Transition associée à l'arc.
