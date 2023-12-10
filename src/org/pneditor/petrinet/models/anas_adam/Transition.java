@@ -86,7 +86,7 @@ public class Transition {
 			inputs.remove(arc);
 			this.setInputArcs(inputs);
 		} else {
-			throw new Exception("Number must be non-negative");
+			throw new Exception("Arc selected to remove is not associated to this transition");
 		}
 	}
 

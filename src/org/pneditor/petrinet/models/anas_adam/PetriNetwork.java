@@ -41,7 +41,7 @@ public class PetriNetwork {
 	 * @param Places Liste des places à définir.
 	 */
 	public void setPlaceList(LinkedList<Place> Places) {
-		this.list_of_places=Places;
+		this.list_of_places = Places;
 	}
 
 	/**
@@ -61,27 +61,11 @@ public class PetriNetwork {
 	}
 
 	/**
-	 * Supprime une transition spécifique du réseau.
-	 * @param transition Transition à supprimer.
-	 */
-	public void removeTransition(Transition transition) {
-		this.list_of_transitions.removeIf(transitions -> transitions.equals(transition));
-	}
-
-	/**
 	 * Ajoute une place spécifique au réseau.
 	 * @param place Place à ajouter.
 	 */
 	public void addPlace(Place place) {
 		this.list_of_places.add(place);
-	}
-
-	/**
-	 * Supprime une place spécifique du réseau.
-	 * @param place Place à supprimer.
-	 */
-	public void removePlace(Place place) {
-		this.list_of_places.removeIf(p -> p.equals(place));
 	}
 
 	/**
@@ -93,20 +77,12 @@ public class PetriNetwork {
 	 * @param isZeroorVideur Booléen indiquant si l'arc est de type ArcZero ou ArcVideur.
 	 */
 	public void addArc(Arc arc, boolean to_transition) {
-		System.out.println("*****"+this.isArcUnique(arc));
 		if (this.isArcUnique(arc)) {
 			this.list_of_arcs.add(arc);
 			for(Transition T: this.list_of_transitions) {
-				System.out.println(T.equals(arc.getTransition()));
-				//				System.out.println(T.getId()+""+transition.getId()+"");
 				if(T.equals(arc.getTransition())) {
-
-					if(to_transition) {
-						T.addInputArc(arc);
-					}
-					else {
-						T.addOutputArc(arc);
-					}
+					if(to_transition) {T.addInputArc(arc);}
+					else {T.addOutputArc(arc);}
 				}
 			}
 		}
@@ -142,26 +118,14 @@ public class PetriNetwork {
 	 * Retourne la liste des arcs présents dans le réseau.
 	 * @return La liste des arcs.
 	 */
-	public LinkedList<Arc> getArc() {
+	public LinkedList<Arc> getArcList() {
 		return this.list_of_arcs;
 	}
-	/**
-	 * supprime l'arc donné
-	 * @throws Exception 
-	 */
-	public void removeArc(Arc arc)  {
-
-		this.list_of_arcs.remove(arc);
-		for(Transition T: this.list_of_transitions) {
-			try {
-				T.removeArc(arc);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
+	
+	public void setArcList(LinkedList<Arc> Arcs) {
+		this.list_of_arcs = Arcs;
 	}
+
 	/**
 	 * Modifie le poids d'un arc spécifique.
 	 * @param arc Arc dont le poids doit être modifié.
@@ -188,7 +152,6 @@ public class PetriNetwork {
 
 	public boolean isArcUnique(Arc arc) {
 		for (Arc arc_transitions : this.list_of_arcs) {
-			//	        System.out.println(arc.getId() + "=" + arc_transitions.getId());
 			if (arc_transitions.equals(arc)) {
 				return false;
 			}
