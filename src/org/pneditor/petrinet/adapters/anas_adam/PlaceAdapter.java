@@ -8,7 +8,7 @@ import org.pneditor.petrinet.models.anas_adam.Place;
  * (AbstractPlace) et le modèle sous-jacent (Place).
  */
 public class PlaceAdapter extends AbstractPlace{
-	private Place model_place;
+	private Place modelPlace;
 
     /**
      * Constructeur de la classe PlaceAdapter.
@@ -16,7 +16,7 @@ public class PlaceAdapter extends AbstractPlace{
      */
 	public PlaceAdapter(final String label) {
 		super(label);
-		this.model_place = new Place(0);
+		this.modelPlace = new Place(0);
 	}
 
     /**
@@ -24,7 +24,7 @@ public class PlaceAdapter extends AbstractPlace{
      * @return Le modèle de place.
      */
 	public Place getModelPlace() {
-		return this.model_place;
+		return this.modelPlace;
 	}
 
     /**
@@ -40,7 +40,7 @@ public class PlaceAdapter extends AbstractPlace{
      */
 	@Override
 	public void removeToken() {
-		this.model_place.removeTokenNbre(1);
+		this.modelPlace.removeTokenNbre(1);
 	}
 
     /**
@@ -49,7 +49,7 @@ public class PlaceAdapter extends AbstractPlace{
      */
 	@Override
 	public int getTokens() {
-		return this.model_place.getTokenNbre();
+		return this.modelPlace.getTokenNbre();
 	}
 
     /**
@@ -58,7 +58,7 @@ public class PlaceAdapter extends AbstractPlace{
      */
 	@Override
 	public void setTokens(int tokens) {
-		this.model_place.setTokenNbre(tokens);
+		this.modelPlace.setTokenNbre(tokens);
 	}
 
     /**

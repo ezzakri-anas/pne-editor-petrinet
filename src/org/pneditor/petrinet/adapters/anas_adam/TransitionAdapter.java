@@ -13,7 +13,7 @@ import org.pneditor.petrinet.models.anas_adam.Transition;
  * (AbstractTransition) et le modèle sous-jacent (Transition).
  */
 public class TransitionAdapter extends AbstractTransition{
-	private Transition model_transition;
+	private Transition modelTransition;
 	
     /**
      * Constructeur de la classe TransitionAdapter.
@@ -21,7 +21,7 @@ public class TransitionAdapter extends AbstractTransition{
      */
 	public TransitionAdapter(final String label) {
 		super(label);
-		this.model_transition = new Transition(new LinkedList<Arc>(),new LinkedList<Arc>());
+		this.modelTransition = new Transition(new LinkedList<Arc>(),new LinkedList<Arc>());
 	}
 
     /**
@@ -29,7 +29,7 @@ public class TransitionAdapter extends AbstractTransition{
      * @return Le modèle de transition.
      */
 	public Transition getModelTransition() {
-		return this.model_transition;
+		return this.modelTransition;
 	}
 	
     /**

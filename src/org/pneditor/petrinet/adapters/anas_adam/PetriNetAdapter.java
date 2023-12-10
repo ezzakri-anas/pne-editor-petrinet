@@ -58,15 +58,23 @@ public class PetriNetAdapter extends PetriNetInterface {
 	@Override
 	public AbstractArc addRegularArc(AbstractNode source, AbstractNode destination) throws UnimplementedCaseException {
 
+		// Determine la place (p) et la transition (t) en fonction des labels des nœuds source et destination.
 		PlaceAdapter p = source.getLabel()=="Place" ? ((PlaceAdapter) source) : ((PlaceAdapter) destination);
 		TransitionAdapter t = source.getLabel()=="Place" ? ((TransitionAdapter) destination) : ((TransitionAdapter) source);
-		boolean to_transition = source.getLabel()=="Place" ? true : false;
+		
+		// Determine si l'arc va vers la transition ou non.
+		boolean toTransition = source.getLabel()=="Place" ? true : false;
 
-		ArcAdapter arc = new ArcAdapter(t, p, true, to_transition);
+		
+		ArcAdapter arc = new ArcAdapter(t, p, true, toTransition);
+		
+		// Vérifie si l'arc est unique, sinon lance une exception.
 		if(!(this.isArcUnique(arc))) {
 			throw new IllegalArgumentException("Arc is not unique:" + arc.getModelArc());
 		}
-		this.petriNetwork.addArc(arc.getModelArc(), to_transition);
+		
+		// Ajoute l'arc au réseau de Petri sous-jacent.
+		this.petriNetwork.addArc(arc.getModelArc(), toTransition);
 
 		return arc;
 	}
@@ -107,8 +115,8 @@ public class PetriNetAdapter extends PetriNetInterface {
 	 */
 	@Override
 	public void removeArc(AbstractArc arc) {
-		Arc model_arc = ((ArcAdapter)arc).getModelArc();
-		this.petriNetwork.removeArc(model_arc);
+		Arc modelArc = ((ArcAdapter)arc).getModelArc();
+		this.petriNetwork.removeArc(modelArc);
 	}
 
     /**

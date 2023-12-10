@@ -15,12 +15,12 @@ import org.pneditor.petrinet.models.anas_adam.Transition;
  * (AbstractArc) et le modèle sous-jacent (Arc).
  */
 public class ArcAdapter extends AbstractArc{
-	private Arc model_arc;
-	private Transition model_transition;
-	private Place model_place;
+	private Arc modelArc;
+	private Transition modelTransition;
+	private Place modelPlace;
 	private AbstractNode transition;
 	private AbstractNode place;
-	private boolean to_transition;
+	private boolean toTransition;
 
     /**
      * Constructeur de la classe ArcAdapter pour un arc régulier avec un poids donné.
@@ -30,13 +30,13 @@ public class ArcAdapter extends AbstractArc{
      * @param isRegular True si c'est un arc régulier, sinon False.
      * @param toTransition True si l'arc va vers la transition, sinon False.
      */
-	public ArcAdapter(int multiplicity, TransitionAdapter transition, PlaceAdapter place, boolean isRegular, boolean to_transition){
+	public ArcAdapter(int multiplicity, TransitionAdapter transition, PlaceAdapter place, boolean isRegular, boolean toTransition){
 		this.transition = transition;
 		this.place = place;
-		this.model_transition = transition.getModelTransition();
-		this.model_place = place.getModelPlace();
-		this.model_arc = new Arc(multiplicity, model_transition, model_place, !isRegular);;
-		this.to_transition = to_transition;
+		this.modelTransition = transition.getModelTransition();
+		this.modelPlace = place.getModelPlace();
+		this.modelArc = new Arc(multiplicity, modelTransition, modelPlace, !isRegular);;
+		this.toTransition = toTransition;
 	}
 
     /**
@@ -46,13 +46,13 @@ public class ArcAdapter extends AbstractArc{
      * @param isRegular True si c'est un arc régulier, sinon False.
      * @param toTransition True si l'arc va vers la transition, sinon False.
      */
-	public ArcAdapter(TransitionAdapter transition, PlaceAdapter place, boolean isRegular, boolean to_transition){
+	public ArcAdapter(TransitionAdapter transition, PlaceAdapter place, boolean isRegular, boolean toTransition){
 		this.transition = transition;
 		this.place = place;
-		this.model_transition = transition.getModelTransition();
-		this.model_place = place.getModelPlace();
-		this.model_arc = new Arc(1, model_transition, model_place, !isRegular);;
-		this.to_transition = to_transition;
+		this.modelTransition = transition.getModelTransition();
+		this.modelPlace = place.getModelPlace();
+		this.modelArc = new Arc(1, modelTransition, modelPlace, !isRegular);;
+		this.toTransition = toTransition;
 	}
 
     /**
@@ -64,14 +64,14 @@ public class ArcAdapter extends AbstractArc{
 	public ArcAdapter(TransitionAdapter transition, PlaceAdapter place, String specialType){
 		this.transition = transition;
 		this.place = place;
-		this.model_transition = transition.getModelTransition();
-		this.model_place = place.getModelPlace();
+		this.modelTransition = transition.getModelTransition();
+		this.modelPlace = place.getModelPlace();
 		if(specialType == "Inhibitor") {
-			this.model_arc = new ArcZero(model_transition, model_place, true);
+			this.modelArc = new ArcZero(modelTransition, modelPlace, true);
 		} else {
-			this.model_arc = new ArcVideur(model_transition, model_place, true);
+			this.modelArc = new ArcVideur(modelTransition, modelPlace, true);
 		}
-		this.to_transition = true;
+		this.toTransition = true;
 	}
 
     /**
@@ -79,7 +79,7 @@ public class ArcAdapter extends AbstractArc{
      * @return True si l'arc va vers la transition, sinon False.
      */
 	public boolean getDirection() {
-		return this.to_transition;
+		return this.toTransition;
 	}
 
     /**
@@ -87,7 +87,7 @@ public class ArcAdapter extends AbstractArc{
      * @return Le modèle d'arc.
      */
 	public Arc getModelArc() {
-		return this.model_arc;
+		return this.modelArc;
 	}
 	
     /**
@@ -96,7 +96,7 @@ public class ArcAdapter extends AbstractArc{
      */
 	@Override
 	public AbstractNode getSource() {
-		return this.to_transition? this.place: this.transition;
+		return this.toTransition? this.place: this.transition;
 	}
 
     /**
@@ -105,7 +105,7 @@ public class ArcAdapter extends AbstractArc{
      */
 	@Override
 	public AbstractNode getDestination() {
-		return this.to_transition? this.transition: this.place;
+		return this.toTransition? this.transition: this.place;
 	}
 
     /**
@@ -114,7 +114,7 @@ public class ArcAdapter extends AbstractArc{
      */
 	@Override
 	public boolean isReset() {
-		return model_arc instanceof ArcVideur;
+		return modelArc instanceof ArcVideur;
 	}
 
     /**
@@ -123,7 +123,7 @@ public class ArcAdapter extends AbstractArc{
      */
 	@Override
 	public boolean isRegular() {
-		return !model_arc.isVideurOrZero();
+		return !modelArc.isVideurOrZero();
 	}
 
     /**
@@ -132,7 +132,7 @@ public class ArcAdapter extends AbstractArc{
      */
 	@Override
 	public boolean isInhibitory() {
-		return model_arc instanceof ArcZero;
+		return modelArc instanceof ArcZero;
 	}
 
     /**
@@ -142,7 +142,7 @@ public class ArcAdapter extends AbstractArc{
      */
 	@Override
 	public int getMultiplicity() throws ResetArcMultiplicityException {
-		return model_arc.getWeight();
+		return modelArc.getWeight();
 	}
 
     /**
@@ -152,6 +152,6 @@ public class ArcAdapter extends AbstractArc{
      */
 	@Override
 	public void setMultiplicity(int multiplicity) throws ResetArcMultiplicityException {
-		model_arc.setWeight(multiplicity);
+		modelArc.setWeight(multiplicity);
 	}
 }
