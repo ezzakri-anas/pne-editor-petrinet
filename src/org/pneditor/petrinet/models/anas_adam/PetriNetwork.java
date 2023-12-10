@@ -94,10 +94,14 @@ public class PetriNetwork {
 	 */
 	public void addArc(Transition transition, Place place, int weight, boolean entrsort, boolean isZeroorVideur) {
 		Arc arc= new Arc(weight,transition,place, isZeroorVideur);
+		System.out.println("*****"+this.isArcUnique(arc));
 		if (this.isArcUnique(arc)) {
 			this.list_of_arcs.add(arc);
 			for(Transition T: this.list_of_transitions) {
+				System.out.println(T.equals(transition));
+				System.out.println(T.getId()+""+transition.getId()+"");
 				if(T.equals(transition)) {
+					
 					if(entrsort) {
 						T.addInputArc(arc);
 					}
@@ -138,6 +142,7 @@ public class PetriNetwork {
 		if (this.isArcUnique(arc)) {
 			this.list_of_arcs.add(arc);
 			for(Transition T: this.list_of_transitions) {
+				
 				if(T.equals(transition)) {
 
 					T.addInputArc(arc);
@@ -195,16 +200,20 @@ public class PetriNetwork {
 	 * @param arc Arc à vérifier.
 	 * @return Booléen indiquant si l'arc est unique.
 	 */
-	public boolean isArcUnique (Arc arc) {
-		for (Arc arc_transitions : this.list_of_arcs) {
-			if (arc_transitions.equals(arc)) {
-				return false;
-
-			}
-		}
-		return true;
-
+	
+	public boolean isArcUnique(Arc arc) {
+	    for (Arc arc_transitions : this.list_of_arcs) {
+	        System.out.println(arc.getId() + "=" + arc_transitions.getId());
+	        if (arc_transitions.equals(arc)) {
+	            throw new IllegalArgumentException("Arc is not unique: ID " + arc.getId());
+	        }
+	    }
+	    return true;
 	}
+
+
+
+	
 	/**
 	 * Exécute un pas (tirage) sur une transition donnée.
 	 * @param T Transition sur laquelle effectuer le pas.

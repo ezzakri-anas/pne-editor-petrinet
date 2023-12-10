@@ -1,6 +1,6 @@
 package org.pneditor.petrinet.adapters.anas_adam;
 
-import java.util.LinkedList;
+
 
 import org.pneditor.petrinet.AbstractTransition;
 import org.pneditor.petrinet.models.anas_adam.Arc;
@@ -9,9 +9,9 @@ import org.pneditor.petrinet.models.anas_adam.Transition;
 public class TransitionAdapter extends AbstractTransition{
 	private Transition model_transition;
 
-	public TransitionAdapter(final String label) {
+	public TransitionAdapter(final String label,Transition T) {
 		super(label);
-		this.model_transition = new Transition(new  LinkedList<Arc>(),new  LinkedList<Arc>());
+		this.model_transition = T;
 	}
 	@Override
 	public Transition getModelTransition() {

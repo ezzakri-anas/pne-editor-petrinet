@@ -6,9 +6,9 @@ import org.pneditor.petrinet.models.anas_adam.Place;
 public class PlaceAdapter extends AbstractPlace{
 	private Place model_place;
 
-	public PlaceAdapter(final String label) {
+	public PlaceAdapter(final String label,Place place) {
 		super(label);
-		this.model_place = new Place(0);
+		this.model_place = place;
 	}
 	@Override
 	public Place getModelPlace() {

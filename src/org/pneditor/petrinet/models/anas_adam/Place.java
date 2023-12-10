@@ -6,6 +6,8 @@
 public class Place {
 
 	private int tokenNbre;
+	private static int counter = 0;
+	private  int id ;
 
 	/**
 	 * Constructeur de la classe Place. Initialise la place avec un nombre de jetons donné.
@@ -14,8 +16,12 @@ public class Place {
 	 */
 	public Place(int tokenNbre) {
 		this.tokenNbre = tokenNbre < 1 ? 0 : tokenNbre;
+		id = ++counter;
 	}
-
+	
+	public int getId() {
+		return this.id;
+	}
 	/**
 	 * Obtient le nombre de jetons actuellement dans la place.
 	 * @return Le nombre de jetons dans la place.
@@ -40,5 +46,14 @@ public class Place {
 	 */
 	public void removeTokenNbre(int to_remove) {
 		this.tokenNbre -= to_remove <= this.getTokenNbre() ? to_remove : this.getTokenNbre();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(this.id == ((Place)obj).getId()) {
+			return true;
+		}
+		return false;
+		
 	}
 }

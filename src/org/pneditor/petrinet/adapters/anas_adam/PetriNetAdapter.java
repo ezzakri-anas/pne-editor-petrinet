@@ -25,9 +25,12 @@ public class PetriNetAdapter extends PetriNetInterface {
     public AbstractPlace addPlace() {
         // Implementation depends on how places are managed in PetriNetwork
         // Example:
-    	AbstractPlace model_place = new PlaceAdapter("Place");// Assuming Place is a suitable class
+    	
     	Place place = new Place(0);
+    	AbstractPlace model_place = new PlaceAdapter("Place",place);// Assuming Place is a suitable class
+    	
         this.petriNetwork.addPlace(place);
+        System.out.println(this.petriNetwork.getPlaceList().size()+"number of Places");
         return model_place; // or an adapter/wrapper of place
     }
 
@@ -35,8 +38,9 @@ public class PetriNetAdapter extends PetriNetInterface {
     public AbstractTransition addTransition() {
         // Similar to addPlace
         Transition transition = new Transition(new LinkedList<Arc>(),new LinkedList<Arc>()); // Assuming Transition is a suitable class
-        AbstractTransition modal_transition = new TransitionAdapter("Transition");
+        AbstractTransition modal_transition = new TransitionAdapter("Transition",transition);
         this.petriNetwork.addTransition(transition);
+        System.out.println(this.petriNetwork.getTransitionList().size()+"number of transitions");
         return modal_transition; // or an adapter/wrapper of transition
     }
 
@@ -44,10 +48,17 @@ public class PetriNetAdapter extends PetriNetInterface {
     public AbstractArc addRegularArc(AbstractNode source, AbstractNode destination) throws UnimplementedCaseException {
         // Implementation depends on how arcs are managed in PetriNetwork
         // Example:
-        if(source.getLabel()=="Place") {
-        	AbstractArc modal_arc = new ArcAdapter((TransitionAdapter) destination,  (PlaceAdapter) source, true);
-        	this.petriNetwork.addArc(((TransitionAdapter) destination).getModelTransition(), ((PlaceAdapter) source).getModelPlace(), 1, true, false);
-        	return modal_arc;
+        
+    	if(source.getLabel()=="Place") {
+    
+    	System.out.println("hello there");
+    	AbstractArc modal_arc = new ArcAdapter((TransitionAdapter) destination,  (PlaceAdapter) source, true);
+    	//addArc(Transition transition, Place place, int weight, boolean entrsort, boolean isZeroorVideur)
+    	this.petriNetwork.addArc(((TransitionAdapter) destination).getModelTransition(), ((PlaceAdapter) source).getModelPlace(), 1, true, false);
+    	System.out.println(((TransitionAdapter) destination).getModelTransition().getInputArcs().size());
+    	System.out.println(this.petriNetwork.getArc().size()+"number of transitions");
+    	
+    	return modal_arc;
         }
         else  {
         	AbstractArc modal_arc = new ArcAdapter((TransitionAdapter) source,  (PlaceAdapter) destination, true);
@@ -55,6 +66,7 @@ public class PetriNetAdapter extends PetriNetInterface {
         	return modal_arc;
         	
         }
+        
     }
 
     // Implement other methods like addInhibitoryArc, addResetArc, removePlace, etc.
@@ -81,11 +93,16 @@ public class PetriNetAdapter extends PetriNetInterface {
     @Override
     public boolean isEnabled(AbstractTransition transition) throws ResetArcMultiplicityException {
     	boolean enabled= true;
+    	System.out.println(transition.getModelTransition().getInputArcs().size());
+    	if (transition.getModelTransition().getInputArcs().size()==0) {
+    		return false;
+    	}
 		for (Arc arc : transition.getModelTransition().getInputArcs()) {
 			if(!arc.isActive()) {
 				enabled= false;
 			}
 		}
+		System.out.println(enabled);
 		return enabled;
     }
 
