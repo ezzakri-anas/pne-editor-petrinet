@@ -27,16 +27,24 @@ public class ArcAdapter extends AbstractArc{
 		this.model_arc =arc;
 		LinkedList<Arc> input_arcs = this.model_transition.getInputArcs();
 		if(input_arcs.contains(this.model_arc)){
+			System.out.println("##########to transition");
 			this.to_transition = true;
 		} else {
+			System.out.println("##########to place");
 			this.to_transition = false;
 		}
 		
 	}
+	
+	public boolean getDirection() {
+		return this.to_transition;
+	}
+	
 	@Override
 	public  Arc getArc() {
 		return this.model_arc;
 	}
+	
 	@Override
 	public AbstractNode getSource() {
 		return this.to_transition? this.transition: this.place;

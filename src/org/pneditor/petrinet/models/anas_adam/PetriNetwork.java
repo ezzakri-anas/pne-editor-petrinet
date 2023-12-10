@@ -99,7 +99,7 @@ public class PetriNetwork {
 			this.list_of_arcs.add(arc);
 			for(Transition T: this.list_of_transitions) {
 				System.out.println(T.equals(transition));
-				System.out.println(T.getId()+""+transition.getId()+"");
+//				System.out.println(T.getId()+""+transition.getId()+"");
 				if(T.equals(transition)) {
 					
 					if(entrsort) {
@@ -152,17 +152,7 @@ public class PetriNetwork {
 			}
 		}
 	}
-	
-	public Arc find(Transition transition, Place place, int weight, boolean isZeroorVideur) {
-		Arc arc= new Arc(weight,transition,place, isZeroorVideur);
-		for ( Arc arcs : this.list_of_arcs)
-		if (arcs.equals(arc)) {
-			return arcs;
-
-				}
-		return null;
-			}
-		
+			
 	
 	/**
 	 * Retourne la liste des arcs présents dans le réseau.
@@ -215,9 +205,9 @@ public class PetriNetwork {
 	
 	public boolean isArcUnique(Arc arc) {
 	    for (Arc arc_transitions : this.list_of_arcs) {
-	        System.out.println(arc.getId() + "=" + arc_transitions.getId());
+//	        System.out.println(arc.getId() + "=" + arc_transitions.getId());
 	        if (arc_transitions.equals(arc)) {
-	            throw new IllegalArgumentException("Arc is not unique: ID " + arc.getId());
+	            return false;
 	        }
 	    }
 	    return true;

@@ -8,8 +8,6 @@ public class Arc {
 	private Place place;
 	private Transition transition;
 	private boolean isVideurOrZero;
-	private static int counter = 0;
-	private  int id ;
 
 	/**
 	 * Constructeur principal de la classe Arc. Initialise l'arc avec un weight spécifié, une place, une transition et un marqueur pour indiquer s'il s'agit d'un arc spécial.
@@ -23,11 +21,8 @@ public class Arc {
 		this.place = place;
 		this.transition = transition;
 		this.isVideurOrZero = isVideurOrZero;
-		id = ++counter;
 	}
-	public int getId() {
-		return this.id;
-	}
+
 	/**
 	 * Constructeur surchargé pour créer un arc avec un weight par défaut de 1.
 	 * @param transition Transition associée à l'arc.
@@ -136,7 +131,7 @@ public class Arc {
 	@Override
 	public boolean equals(Object obj) {
 		
-		if((this.weight==((Arc)obj).getWeight())&&(this.place.equals(((Arc)obj).getPlace()))&&(this.transition.equals(((Arc)obj).getTransition()))&&(this.isVideurOrZero==((Arc)obj).isVideurOrZero())) {
+		if((this.place.equals(((Arc)obj).getPlace()))&&(this.transition.equals(((Arc)obj).getTransition()))) {
 			return true;
 		}
 		return false;

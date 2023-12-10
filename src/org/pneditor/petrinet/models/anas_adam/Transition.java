@@ -8,8 +8,6 @@ import java.util.LinkedList;
 public class Transition {
 	private LinkedList<Arc> inputArcs;
 	private LinkedList<Arc> outputArcs;
-	private static int counter = 0;
-	private  int id ;
 
 	/**
 	 * Constructeur de la classe Transition. Initialise la transition avec des listes d'arcs entrants et sortants.
@@ -19,11 +17,8 @@ public class Transition {
 	public Transition(LinkedList<Arc> inputArcs, LinkedList<Arc> outputArcs) {
 		this.inputArcs = inputArcs;
 		this.outputArcs = outputArcs;
-		id = ++counter;
 	}
-	public int getId() {
-		return this.id;
-	}
+
 	/**
 	 * Retourne la liste des arcs entrants de cette transition.
 	 * @return Liste des arcs entrants.
@@ -94,13 +89,6 @@ public class Transition {
 			throw new Exception("Number must be non-negative");
 		}
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if(this.id == ((Transition)obj).getId()) {
-			return true;
-		}
-		return false;
-		
-	}
+
 
 }
