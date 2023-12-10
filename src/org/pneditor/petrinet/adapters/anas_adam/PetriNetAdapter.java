@@ -17,7 +17,7 @@ import org.pneditor.petrinet.models.anas_adam.Transition;
 
 /**
  * Cette classe sert d'adaptateur entre l'interface graphique de l'éditeur de réseau de Petri
- * (PetriNetInterface) et le modèle sous-jacent (PetriNetwork) de Anas Adam.
+ * (PetriNetInterface) et le modèle sous-jacent (PetriNetwork).
  */
 public class PetriNetAdapter extends PetriNetInterface {
 	private PetriNetwork petriNetwork;
