@@ -89,9 +89,6 @@ public class PetriNetAdapter extends PetriNetInterface {
 	 */
 	@Override
 	public void removePlace(AbstractPlace place) {
-//		LinkedList<Place> places_list = this.petriNetwork.getPlaceList();
-//		places_list.removeIf(p -> p.equals(((PlaceAdapter)place).getModelPlace()));
-//		this.petriNetwork.setPlaceList(places_list);
 		this.petriNetwork.removePlace(((PlaceAdapter)place).getModelPlace());
 	}
 
@@ -101,9 +98,6 @@ public class PetriNetAdapter extends PetriNetInterface {
 	 */
 	@Override
 	public void removeTransition(AbstractTransition transition) {
-//		LinkedList<Transition> transitions_list = this.petriNetwork.getTransitionList();
-//		transitions_list.removeIf(p -> p.equals(((TransitionAdapter)transition).getModelTransition()));
-//		this.petriNetwork.setTransitionList(transitions_list);
 		this.petriNetwork.removeTransition(((TransitionAdapter)transition).getModelTransition());
 	}
 
@@ -115,19 +109,6 @@ public class PetriNetAdapter extends PetriNetInterface {
 	public void removeArc(AbstractArc arc) {
 		Arc model_arc = ((ArcAdapter)arc).getModelArc();
 		this.petriNetwork.removeArc(model_arc);
-
-//		LinkedList<Arc> arcs_list = this.petriNetwork.getArcList();
-//		arcs_list.removeIf(p -> p.equals(model_arc));
-//		this.petriNetwork.setArcList(arcs_list);
-//
-//		for(Transition T: this.petriNetwork.getTransitionList()) {
-//			LinkedList<Arc> outputs = T.getOutputArcs();
-//			LinkedList<Arc> inputs = T.getInputArcs();
-//			outputs.removeIf(a -> a.equals(model_arc));
-//			inputs.removeIf(a -> a.equals(model_arc));
-//			T.setOutputArcs(outputs);
-//			T.setInputArcs(inputs);
-//		}
 	}
 
     /**

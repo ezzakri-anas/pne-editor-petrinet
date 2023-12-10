@@ -86,12 +86,9 @@ public class PetriNetwork {
 	}
 
 	/**
-	 * Ajoute un arc au réseau avec les paramètres spécifiés.
-	 * @param transition Transition associée à l'arc.
-	 * @param place Place associée à l'arc.
-	 * @param weight Poids de l'arc.
-	 * @param entrsort Booléen indiquant si l'arc est entrant ou sortant.
-	 * @param isZeroorVideur Booléen indiquant si l'arc est de type ArcZero ou ArcVideur.
+	 * Ajoute un arc au réseau de Petri.
+	 * @param arc L'arc à ajouter.
+	 * @param toTransition True si l'arc va vers la transition, sinon False.
 	 */
 	public void addArc(Arc arc, boolean to_transition) {
 		if (this.isArcUnique(arc)) {
