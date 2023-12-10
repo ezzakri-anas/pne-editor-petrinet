@@ -16,8 +16,6 @@
  */
 package org.pneditor.petrinet;
 
-import org.pneditor.petrinet.models.anas_adam.Place;
-
 /**
  *
  * @author Martin Riesz <riesz.martin at gmail.com>
@@ -35,8 +33,6 @@ public abstract class AbstractPlace extends AbstractNode {
 	public abstract int getTokens();
 
 	public abstract void setTokens(int tokens);
-	
-	public abstract Place getModelPlace();
 	
 	@Override
 	public boolean isPlace() {

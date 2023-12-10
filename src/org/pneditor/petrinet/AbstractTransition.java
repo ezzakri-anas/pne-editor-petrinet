@@ -16,8 +16,6 @@
  */
 package org.pneditor.petrinet;
 
-import org.pneditor.petrinet.models.anas_adam.Transition;
-
 /**
  *
  * @author Martin Riesz <riesz.martin at gmail.com>
@@ -32,6 +30,4 @@ public abstract class AbstractTransition extends AbstractNode {
 	public boolean isPlace() {
 		return false;
 	}
-	
-	public abstract Transition getModelTransition();
 }

@@ -19,20 +19,39 @@ public class ArcAdapter extends AbstractArc{
 	private AbstractNode place;
 	private boolean to_transition;
 
-	public ArcAdapter(Arc arc,TransitionAdapter transition, PlaceAdapter place, boolean isRegular){
+	public ArcAdapter(int weight, TransitionAdapter transition, PlaceAdapter place, boolean isRegular, boolean to_transition){
 		this.transition = transition;
 		this.place = place;
 		this.model_transition = transition.getModelTransition();
 		this.model_place = place.getModelPlace();
-		this.model_arc =arc;
-		LinkedList<Arc> input_arcs = this.model_transition.getInputArcs();
-		if(input_arcs.contains(this.model_arc)){
-			System.out.println("##########to transition");
-			this.to_transition = true;
-		} else {
-			System.out.println("##########to place");
-			this.to_transition = false;
-		}
+		this.model_arc = new Arc(weight, model_transition, model_place, !isRegular);;
+		this.to_transition = to_transition;
+//		LinkedList<Arc> input_arcs = this.model_transition.getInputArcs();
+//		if(input_arcs.contains(this.model_arc)){
+//			System.out.println("##########to transition");
+//			this.to_transition = true;
+//		} else {
+//			System.out.println("##########to place");
+//			this.to_transition = false;
+//		}
+		
+	}
+	
+	public ArcAdapter(TransitionAdapter transition, PlaceAdapter place, boolean isRegular, boolean to_transition){
+		this.transition = transition;
+		this.place = place;
+		this.model_transition = transition.getModelTransition();
+		this.model_place = place.getModelPlace();
+		this.model_arc = new Arc(1, model_transition, model_place, !isRegular);;
+		this.to_transition = to_transition;
+//		LinkedList<Arc> input_arcs = this.model_transition.getInputArcs();
+//		if(input_arcs.contains(this.model_arc)){
+//			System.out.println("##########to transition");
+//			this.to_transition = true;
+//		} else {
+//			System.out.println("##########to place");
+//			this.to_transition = false;
+//		}
 		
 	}
 	
@@ -40,8 +59,8 @@ public class ArcAdapter extends AbstractArc{
 		return this.to_transition;
 	}
 	
-	@Override
-	public  Arc getArc() {
+
+	public Arc getModelArc() {
 		return this.model_arc;
 	}
 	

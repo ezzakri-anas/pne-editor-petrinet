@@ -16,8 +16,6 @@
  */
 package org.pneditor.petrinet;
 
-import org.pneditor.petrinet.models.anas_adam.Arc;
-
 /**
  *
  * @author Martin Riesz <riesz.martin at gmail.com>
@@ -41,7 +39,5 @@ public abstract class AbstractArc  {
 	public abstract int getMultiplicity() throws ResetArcMultiplicityException;
 
 	public abstract void setMultiplicity(int multiplicity) throws ResetArcMultiplicityException;
-
-	public abstract Arc getArc();
 
 }
