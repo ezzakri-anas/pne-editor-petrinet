@@ -38,7 +38,6 @@ public class ArcAdapter extends AbstractArc{
 		this.model_place = place.getModelPlace();
 		this.model_arc = new Arc(multiplicity, model_transition, model_place, !isRegular);;
 		this.to_transition = to_transition;
-
 	}
 
     /**
@@ -55,7 +54,6 @@ public class ArcAdapter extends AbstractArc{
 		this.model_place = place.getModelPlace();
 		this.model_arc = new Arc(1, model_transition, model_place, !isRegular);;
 		this.to_transition = to_transition;
-
 	}
 
     /**
@@ -75,7 +73,6 @@ public class ArcAdapter extends AbstractArc{
 			this.model_arc = new ArcVideur(model_transition, model_place, true);
 		}
 		this.to_transition = true;
-
 	}
 
     /**
