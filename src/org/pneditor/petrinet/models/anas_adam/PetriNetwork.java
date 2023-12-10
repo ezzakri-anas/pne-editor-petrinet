@@ -100,6 +100,7 @@ public class PetriNetwork {
 			T.addInputArc(arc);
 		}
 	}
+	
 	/**
 	 * Ajoute un ArcVideur au réseau, un type spécial d'arc qui vide entièrement la place de ses jetons lorsqu'il est tiré.
 	 * @param transition Transition associée à l'arc.
@@ -121,7 +122,11 @@ public class PetriNetwork {
 	public LinkedList<Arc> getArcList() {
 		return this.list_of_arcs;
 	}
-
+	
+	/**
+	 * Définit la liste des arcs dans le réseau.
+	 * @param Arcs Liste des arcs à définir.
+	 */
 	public void setArcList(LinkedList<Arc> Arcs) {
 		this.list_of_arcs = Arcs;
 	}
@@ -174,9 +179,8 @@ public class PetriNetwork {
 			if(!arc.isActive()) {
 				enabled= false;
 			}
-
-
 		}
+		
 		if(enabled) {
 			for (Arc arc : T.getInputArcs()) {
 				if(arc.isVideurOrZero()) {

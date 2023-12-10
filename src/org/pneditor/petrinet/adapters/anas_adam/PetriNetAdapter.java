@@ -14,13 +14,25 @@ import org.pneditor.petrinet.models.anas_adam.PetriNetwork;
 import org.pneditor.petrinet.models.anas_adam.Place;
 import org.pneditor.petrinet.models.anas_adam.Transition;
 
+
+/**
+ * Cette classe sert d'adaptateur entre l'interface graphique de l'éditeur de réseau de Petri
+ * (PetriNetInterface) et le modèle sous-jacent (PetriNetwork) de Anas Adam.
+ */
 public class PetriNetAdapter extends PetriNetInterface {
 	private PetriNetwork petriNetwork;
 
+    /**
+     * Constructeur de la classe PetriNetAdapter. Initialise le réseau de Petri sous-jacent.
+     */
 	public PetriNetAdapter() {
 		this.petriNetwork = new PetriNetwork();
 	}
 
+    /**
+     * Ajoute une place au réseau de Petri.
+     * @return La place ajoutée.
+     */
 	@Override
 	public AbstractPlace addPlace() {
 		AbstractPlace place = new PlaceAdapter("Place");
@@ -29,6 +41,10 @@ public class PetriNetAdapter extends PetriNetInterface {
 		return place;
 	}
 
+    /**
+     * Ajoute une transition au réseau de Petri.
+     * @return La transition ajoutée.
+     */
 	@Override
 	public AbstractTransition addTransition() {
 		AbstractTransition transition = new TransitionAdapter("Transition");
@@ -36,6 +52,13 @@ public class PetriNetAdapter extends PetriNetInterface {
 		return transition;
 	}
 
+    /**
+     * Ajoute un arc régulier reliant deux nœuds du réseau de Petri.
+     * @param source Le nœud source de l'arc.
+     * @param destination Le nœud destination de l'arc.
+     * @return L'arc ajouté.
+     * @throws UnimplementedCaseException Si l'arc n'est pas unique.
+     */
 	@Override
 	public AbstractArc addRegularArc(AbstractNode source, AbstractNode destination) throws UnimplementedCaseException {
 
@@ -52,7 +75,11 @@ public class PetriNetAdapter extends PetriNetInterface {
 		return arc;
 	}
 
-
+    /**
+     * Vérifie si l'arc est unique dans le réseau de Petri.
+     * @param arc L'arc à vérifier.
+     * @return True si l'arc est unique, sinon False.
+     */
 	public boolean isArcUnique(AbstractArc arc) {
 		return this.petriNetwork.isArcUnique(((ArcAdapter)arc).getModelArc());
 	}
@@ -83,8 +110,8 @@ public class PetriNetAdapter extends PetriNetInterface {
 	}
 
 	/**
-	 * supprime l'arc donné
-	 * @throws Exception 
+	 * Supprime un arc spécifique des listes d'arcs entrants ou sortants, selon sa présence.
+	 * @param arc Arc à supprimer.
 	 */
 	@Override
 	public void removeArc(AbstractArc arc) {
@@ -102,9 +129,14 @@ public class PetriNetAdapter extends PetriNetInterface {
 			T.setOutputArcs(outputs);
 			T.setInputArcs(inputs);
 		}
-
 	}
 
+    /**
+     * Vérifie si une transition est activée dans le réseau de Petri.
+     * @param transition La transition à vérifier.
+     * @return True si la transition est activée, sinon False.
+     * @throws ResetArcMultiplicityException Si l'arc est videur.
+     */
 	@Override
 	public boolean isEnabled(AbstractTransition transition) throws ResetArcMultiplicityException {
 		boolean enabled= true;
@@ -119,12 +151,24 @@ public class PetriNetAdapter extends PetriNetInterface {
 		}
 		return enabled;
 	}
-
+	
+    /**
+     * Déclenche une transition dans le réseau de Petri.
+     * @param transition La transition à déclencher.
+     * @throws ResetArcMultiplicityException.
+     */
 	@Override
 	public void fire(AbstractTransition transition) throws ResetArcMultiplicityException {
 		this.petriNetwork.step(((TransitionAdapter)transition).getModelTransition());
 	}
 
+    /**
+     * Ajoute un arc zero reliant une place et une transition dans le réseau de Petri.
+     * @param place La place source de l'arc zero.
+     * @param transition La transition destination de l'arc zero.
+     * @return L'arc zero ajouté.
+     * @throws UnimplementedCaseException.
+     */
 	@Override
 	public AbstractArc addInhibitoryArc(AbstractPlace place, AbstractTransition transition)
 			throws UnimplementedCaseException {
@@ -132,7 +176,14 @@ public class PetriNetAdapter extends PetriNetInterface {
 		this.petriNetwork.addArcZero(((ArcAdapter)arc).getModelArc());
 		return arc;
 	}
-
+	
+    /**
+     * Ajoute un arc videur reliant une place et une transition dans le réseau de Petri.
+     * @param place La place source de l'arc videur.
+     * @param transition La transition destination de l'arc videur.
+     * @return L'arc videur ajouté.
+     * @throws UnimplementedCaseException.
+     */
 	@Override
 	public AbstractArc addResetArc(AbstractPlace place, AbstractTransition transition)
 			throws UnimplementedCaseException {

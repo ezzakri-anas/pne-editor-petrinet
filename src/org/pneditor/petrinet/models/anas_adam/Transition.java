@@ -69,26 +69,4 @@ public class Transition {
 		arcs.add(arc);
 		this.setOutputArcs(arcs);// à tester si on peut ajouter un arc sans le setter
 	}
-	/**
-	 * Supprime un arc spécifique des listes d'arcs entrants ou sortants, selon sa présence.
-	 * Lève une exception si l'arc n'est trouvé ni dans les arcs entrants ni dans les arcs sortants.
-	 * @param arc Arc à supprimer.
-	 * @throws Exception Si l'arc n'est pas trouvé.
-	 */
-	public void removeArc(Arc arc) throws Exception {
-		LinkedList<Arc> outputs = this.getOutputArcs();
-		LinkedList<Arc> inputs = this.getInputArcs();
-
-		if (outputs.contains(arc)) {
-			outputs.remove(arc);
-			this.setOutputArcs(outputs);
-		} else if (inputs.contains(arc)) {
-			inputs.remove(arc);
-			this.setInputArcs(inputs);
-		} else {
-			throw new Exception("Arc selected to remove is not associated to this transition");
-		}
-	}
-
-
 }
